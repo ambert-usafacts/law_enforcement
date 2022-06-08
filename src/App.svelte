@@ -2,6 +2,7 @@
   import data from './assets/smallMultiplesTime.csv'
   import {groups, greatest, least, ascending, groupSort, descending} from 'd3-array'
   import { scaleLinear } from 'd3-scale'
+  import { fade } from 'svelte/transition';
   import Chart from './lib/Chart.svelte'
   import Toggle from './lib/Toggle.svelte'
 
@@ -52,15 +53,15 @@
  
     {#each groupJur as [state, indiJur]}
        <div class='wrapper'>
-         <p>{state}</p>
-      <div class='g-state'>
-        {#each indiJur as [key, values]}
-        <div class='container'>
-            <Chart {key} {values} xScale = {yearScale} yScale = {officerScale} />
-        </div>
-        {/each}
+          <p>{state}</p>
+          <div class='g-state'>
+            {#each indiJur as [key, values]}
+              <div class='container' out:fade>
+                  <Chart {key} {values} xScale = {yearScale} yScale = {officerScale} />
+              </div>
+            {/each}
+          </div>
       </div>
-    </div>
     {/each}
 
 </main>
